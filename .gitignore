@@ -16,5 +16,6 @@ __pycache__/
 *.pyc
 
 # OS & editor files
+# macOS system files
 .DS_Store
 .vscode/
