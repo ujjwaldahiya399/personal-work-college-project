@@ -1,45 +1,24 @@
-# Ignore data files
-data/raw/*
-data/processed/*
 
-# Keep directory structure
-!data/raw/.gitkeep
-!data/processed/.gitkeep
+# Data directories
 
-# Kaggle credentials
-kaggle.json
-.kaggle/
-
-# Jupyter & Python cache
-.ipynb_checkpoints/
-__pycache__/
-*.pyc
-
-# OS & editor files
-# macOS system files
-.DS_Store
-.vscode/
 # Ignore raw datasets but keep folder visible
 data/raw/*
 !data/raw/.gitkeep
 
-# Ignore raw datasets (keep folder structure)
-data/raw/*
-!data/raw/.gitkeep
-
-# Processed data (allowed; keep folder)
+# Keep processed directory visible (processed files may be committed if needed)
 !data/processed/.gitkeep
-
 # Kaggle credentials
 kaggle.json
 .kaggle/
 
 # Jupyter & Python cache
-
 .ipynb_checkpoints/
 __pycache__/
 *.pyc
+
 # OS & editor files
+
 .DS_Store
 .vscode/
+
 
