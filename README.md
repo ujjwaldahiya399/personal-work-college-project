@@ -27,6 +27,79 @@ To reproduce the full experiment, execute the notebooks in the following order:
 - 05_evaluation.ipynb
   
   Each notebook produces outputs that are used by the next stage.
+  
+## Repository Structure
+Initial Structure (After Clone)
+After cloning the repository, the structure is:
+.
+├── data/
+├── notebooks/
+│   ├── 01_data_ingestion.ipynb
+│   ├── 02_eda.ipynb
+│   ├── 03_preprocessing.ipynb
+│   ├── 04_models.ipynb
+│   └── 05_evaluation.ipynb
+├── requirements.txt
+└── README.md
+At this stage, no model artifacts, processed datasets, or evaluation plots are present.
+Generated Structure (After Executing Notebooks in Order)
+
+After running the notebooks sequentially, the following directories are created automatically:
+.
+├── data/
+│   └── processed/
+│       └── cmi_sensor_data/
+│           ├── train_clean.csv
+│           ├── train_mlp_scaled.csv
+│           ├── val_mlp_scaled.csv
+│           └── metadata files
+│
+├── models_artifacts/
+│   ├── models/
+│   │   ├── fft_mlp_all_sensors.joblib
+│   │   ├── fft_rf_all_sensors.joblib
+│   │   ├── cnn_bilstm_tof_model.pt
+│   │   └── intermediate_fusion_model.pt
+│   │
+│   ├── outputs/
+│   │   ├── logits_val_fft_mlp_all_sensors.npy
+│   │   ├── logits_val_fft_mlp_imu_thm.npy
+│   │   ├── logits_val_fft_rf_all_sensors.npy
+│   │   ├── validation_logits_cnn_bilstm_tof.npy
+│   │   ├── logits_val_late_fusion.npy
+│   │   └── validation_logits_intermediate_fusion.npy
+│   │
+│   └── metadata/
+│       ├── class_mapping.json
+│       └── split_sequence_ids.json
+│
+├── plots/
+│   └── evaluation/
+│       ├── fig4_binary_f1_all_inputs.png
+│       ├── fig5_macro_f1_all_inputs.png
+│       └── confusion_matrix_best_macro_model.png
+
+All directories under `data/processed/`, `models_artifacts/`, and `plots/`
+are generated dynamically during notebook execution and are not required
+to be present in a fresh clone of the repository.
+
+## Generated Outputs
+
+When the notebooks are executed in the specified order, the following directories are created automatically:
+
+- models_artifacts/models/  
+  Saved trained model weights (.pt, .joblib).
+
+- models_artifacts/outputs/  
+  Saved validation logits (.npy) and sequence ID files required for evaluation.
+
+- models_artifacts/metadata/  
+  Class mappings and metadata files required for evaluation.
+
+- plots/evaluation/  
+  Evaluation plots (Figures 4–7) saved as PNG files.
+
+These files are required for full evaluation reproducibility and are generated dynamically during execution.
 
 ## System Requirements
 
@@ -36,7 +109,9 @@ The system requirements for the artifact were met during implementation and test
 - **CPU**: Apple Silicon (ARM64)
 - **RAM**: Minimum 8 GB
 - **GPU**: Optional (used only for faster model training)
-- **Python**: Version 3.14.0
+- **Python**:version tested: 3.14.0  
+The artifact may also run on Python ≥3.10.
+
 - **Key Dependencies**:
   - numpy
   - pandas
@@ -54,6 +129,10 @@ To set up the environment and execute the notebooks from a fresh clone of the re
    ```bash
    git clone <repository-url>
    cd 2026-winter-capstone-project-2026winter-capstone-group-5
+  Dataset Location: The BFRB dataset files must be placed in the following directory before running the notebooks:
+  ```bash
+  data/raw/
+```
 2. Create and activate a Python virtual environment (optional but recommended) (≈ 2 minutes)
     ```bash
    python3 -m venv venv
@@ -92,12 +171,12 @@ Output: EDA visualizations and statistics presented in the notebook.
 
 Description: Performs data cleaning and preprocessing.
 Tasks:
-
-  Missing or noisy data handling
-  Feature engineering
-  Dataset splitting
-
-Output: Preprocessed datasets stored on disk for model training.
+- Sequence-aware splitting to prevent data leakage.
+- Fixed-length padding/truncation of temporal sequences.
+- FFT feature construction for IMU and THM sensors.
+- Reshaping of TOF features to (5 × 8 × 8) per time step.
+- Standardization of FFT features using training-set statistics only.
+- Preservation of validation sequence IDs for reproducible evaluation.
 
 4. 04_models.ipynb
 
@@ -113,12 +192,22 @@ Tasks:
 Description: Evaluates trained models and replicates the results as reported in the paper.
 Metrics:
 
-  Binary F1-score
-  Macro-averaged F1-score
+Metrics:
 
-Output:
-  Evaluation visualizations generated using matplotlib
-  Visualizations saved to the plots/ directory.
+- Binary F1-score (BFRB vs non-target classification)
+- Macro-averaged F1-score across 8 BFRB gesture classes
+- Confusion matrix for best macro-F1 model (for analysis)
+
+## Git Branching Strategy
+
+This project follows a feature-branch workflow as required by the artifact rubric:
+
+- Each team member implements their feature in a dedicated branch.
+- Feature branches are merged into the `dev` branch via pull requests.
+- The `dev` branch is merged into `main` after validation.
+
+This ensures modular development, traceable contributions, and reproducibility.
+
 
 ## Reproducibility Notes
 
@@ -145,4 +234,6 @@ Output:
 3. Randomly initializing the model parameters may cause differences in the results for the model’s performance metrics.
 4. This artifact does not investigate other model types, as the focus is on reproducing the results of the reference paper.
 5. The hyperparameters are set to the same values used in the reference study, which may not be optimal for all environments.
-   
+6. Reproduction assumes the same class mapping as defined in metadata/class_mapping.json.
+7. Evaluation requires all logits files to be generated before running 05_evaluation.ipynb.
+
