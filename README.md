@@ -29,8 +29,11 @@ To reproduce the full experiment, execute the notebooks in the following order:
   Each notebook produces outputs that are used by the next stage.
   
 ## Repository Structure
-Initial Structure (After Clone)
-After cloning the repository, the structure is:
+## Repository Structure
+
+### Initial Structure (After Cloning)
+
+```text
 .
 ├── data/
 ├── notebooks/
@@ -41,12 +44,18 @@ After cloning the repository, the structure is:
 │   └── 05_evaluation.ipynb
 ├── requirements.txt
 └── README.md
+```
 At this stage, no model artifacts, processed datasets, or evaluation plots are present.
 Generated Structure (After Executing Notebooks in Order)
 
 After running the notebooks sequentially, the following directories are created automatically:
+```text
 .
 ├── data/
+│   ├── raw/
+│   │   ├── train.csv
+│   │   └── test.csv
+│   │
 │   └── processed/
 │       └── cmi_sensor_data/
 │           ├── train_clean.csv
@@ -78,7 +87,7 @@ After running the notebooks sequentially, the following directories are created 
 │       ├── fig4_binary_f1_all_inputs.png
 │       ├── fig5_macro_f1_all_inputs.png
 │       └── confusion_matrix_best_macro_model.png
-
+```
 All directories under `data/processed/`, `models_artifacts/`, and `plots/`
 are generated dynamically during notebook execution and are not required
 to be present in a fresh clone of the repository.
