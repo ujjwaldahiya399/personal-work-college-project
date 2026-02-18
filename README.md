@@ -3,28 +3,30 @@
 This repository is a reproduction of the results presented in the paper:  
 Zhang, Ryoo, Mukherjee (2025), *Detection of Body Focused Repetitive Behaviors using Deep Learning*.
 
-The artifact is a complete experimental pipeline for the detection of Body Focused Repetitive Behavior (BFRB), which includes data ingestion, exploratory data analysis, data preprocessing, implementation of the model, and evaluation. The entire experimental process is designed as a series of modular Jupyter Notebooks for reproducibility.
-The project is structured as a sequence of modular Jupyter notebooks. Each notebook corresponds to a stage in the experimental pipeline, allowing the entire process from raw data to final evaluation to be executed in a clear and reproducible manner.
+The artifact is a complete experimental pipeline for the detection of Body Focused Repetitive Behavior (BFRB), which includes data ingestion, exploratory data analysis, data preprocessing, implementation of the model, and evaluation. The entire experimental process is designed as a series of modular Jupyter Notebooks for reproducibility.The project is structured as a sequence of modular Jupyter notebooks. Each notebook corresponds to a stage in the experimental pipeline, allowing the entire process from raw data to final evaluation to be executed in a clear and reproducible manner.
 
-Implemented Models
+## Implemented Models
+
 All six models described in the paper have been implemented:
-FFT-MLP (IMU + THM + TOF)
-FFT-MLP (IMU + THM only)
-CNN-BiLSTM (TOF only)
-Late Fusion Ensemble
-Intermediate Fusion Ensemble
-FFT-Random Forest
-The architectures, hyperparameters, and training configurations implemented in this artifact strictly adhere to those described in the original study. No additional models, optimization strategies, hyperparameter tuning procedures, or architectural modifications beyond those reported in the paper were introduced.
+- FFT-MLP (IMU + THM + TOF)
+- FFT-MLP (IMU + THM only)
+- CNN-BiLSTM (TOF only)
+- Late Fusion Ensemble
+- Intermediate Fusion Ensemble
+- FFT-Random Forest
+  
+ The architectures, hyperparameters, and training configurations implemented in this artifact strictly adhere to those described in the original   study. No additional models, optimization strategies, hyperparameter tuning procedures, or architectural modifications beyond those reported in   the paper were introduced.
 
-Notebook Execution Order
+## Notebook Execution Order
+
 To reproduce the full experiment, execute the notebooks in the following order:
-01_data_ingestion.ipynb
-02_eda.ipynb
-03_preprocessing.ipynb
-04_models.ipynb
-05_evaluation.ipynb
-Each notebook produces outputs that are used by the next stage.
----
+- 01_data_ingestion.ipynb
+- 02_eda.ipynb
+- 03_preprocessing.ipynb
+- 04_models.ipynb
+- 05_evaluation.ipynb
+  
+  Each notebook produces outputs that are used by the next stage.
 
 ## System Requirements
 
@@ -43,8 +45,6 @@ The system requirements for the artifact were met during implementation and test
   - torch
   - scikit-learn  
   (The full list of dependencies is provided in `requirements.txt`.)
-
----
 
 ## Setup Instructions
 
@@ -65,9 +65,6 @@ To set up the environment and execute the notebooks from a fresh clone of the re
    ```bash
    jupyter notebook
 5. Open the notebooks/ directory and run the notebooks in the specified order.
-
----
-
 
 ## Reproducing Results
 
@@ -123,22 +120,23 @@ Output:
   Evaluation visualizations generated using matplotlib
   Visualizations saved to the plots/ directory.
 
----
-Reproducibility Notes
-A fixed random seed (42) is used where applicable.
-Train/test splitting is sequence-aware to prevent data leakage.
-FFT-based models use fixed-length padding/truncation for consistent input dimensions.
-Hyperparameters match those reported in the original paper.
-Minor variations in performance may occur due to hardware or floating-point precision differences.
+## Reproducibility Notes
 
-Approximate Execution Time
-On a standard laptop (CPU only):
-Data ingestion: < 1 minute
-EDA: 1–2 minutes
-Preprocessing: 2–3 minutes
-Model training: 10–20 minutes
-Evaluation: < 1 minute
-Total reproduction time is approximately 15–25 minutes.
+- A fixed random seed (42) is used where applicable.
+- Train/test splitting is sequence-aware to prevent data leakage.
+- FFT-based models use fixed-length padding/truncation for consistent input dimensions.
+- Hyperparameters match those reported in the original paper.
+- Minor variations in performance may occur due to hardware or floating-point precision differences.
+
+## Approximate Execution Time
+
+- On a standard laptop (CPU only):
+- Data ingestion: < 1 minute
+- EDA: 1–2 minutes
+- Preprocessing: 2–3 minutes
+- Model training: 10–20 minutes
+- Evaluation: < 1 minute
+  Total reproduction time is approximately 15–25 minutes.
 
 ## Limitations
 
