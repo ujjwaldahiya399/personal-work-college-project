@@ -1,4 +1,62 @@
+# -----------------------------
+# Virtual environments
+# -----------------------------
+venv/
+env/
+.venv/
+
+# -----------------------------
+# Python cache
+# -----------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# -----------------------------
+# Jupyter
+# -----------------------------
+.ipynb_checkpoints/
+
+# -----------------------------
+# OS files
+# -----------------------------
+.DS_Store
+Thumbs.db
+
+# -----------------------------
+# Raw and processed data
+# -----------------------------
 data/raw/
 data/processed/
-*.csv
-.ipynb_checkpoints/
+
+# -----------------------------
+# Generated model artifacts
+# -----------------------------
+models_artifacts/
+plots/
+
+# -----------------------------
+# Large generated files
+# -----------------------------
+*.npy
+*.pt
+*.pth
+*.joblib
+*.pkl
+
+# -----------------------------
+# CSV files (only ignore generated CSVs inside processed)
+# -----------------------------
+data/processed/**/*.csv
+
+# -----------------------------
+# Logs
+# -----------------------------
+*.log
+
+# -----------------------------
+# IDE settings
+# -----------------------------
+.vscode/
+.idea/
