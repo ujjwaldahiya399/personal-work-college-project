@@ -237,3 +237,4 @@ This ensures modular development, traceable contributions, and reproducibility.
 6. Reproduction assumes the same class mapping as defined in metadata/class_mapping.json.
 7. Evaluation requires all logits files to be generated before running 05_evaluation.ipynb.
 
+# personal-work-college-project
