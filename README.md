@@ -238,3 +238,50 @@ This ensures modular development, traceable contributions, and reproducibility.
 7. Evaluation requires all logits files to be generated before running 05_evaluation.ipynb.
 
 # personal-work-college-project
+
+
+## Milestone 2 — NLP-Based BFRB Detection
+
+### System Requirements
+- OS: macOS 14 (tested), Ubuntu 22.04 (expected compatible)
+- CPU: x86_64 with AVX2 support
+- RAM: ≥ 8 GB
+- GPU: Optional (for PyTorch acceleration)
+- Python: 3.10.6
+- Dependencies:
+  numpy>=1.23.5
+  pandas>=1.5.0
+  matplotlib>=3.7.1
+  scikit-learn>=1.2.0
+  torch>=2.1.0
+  jupyter>=1.0.0
+
+### Setup Instructions
+1. Clone the repository (~1 min):
+   git clone <your-repo-url>
+   cd <repo-folder>
+
+2. Create and activate virtual environment (~1 min):
+   python3 -m venv venv
+   source venv/bin/activate
+
+3. Install dependencies (~3-5 min):
+   pip install -r requirements.txt
+
+4. Launch Jupyter (~30 sec):
+   jupyter notebook
+
+### Reproducing Results
+Run the notebooks in this exact order:
+
+1. `notebooks/nlp_model.ipynb` — Trains TF-IDF + Logistic Regression NLP model. Outputs `nlp_model_results.json` and `logits_val_nlp_model.npy` to `models_artifacts/outputs/`
+2. `notebooks/evaluation.ipynb` — Compares NLP model vs paper baselines using binary F1 and macro F1. Outputs `evaluation_comparison.csv`
+3. `notebooks/plot_generation.ipynb` — Reads `evaluation_comparison.csv` and generates 3 plots saved to `plots/`
+
+### Limitations
+1. TF-IDF treats sensor data as text tokens, losing temporal ordering information
+2. Logistic Regression cannot capture non-linear patterns in sensor time-series
+3. Quantile-based binning of sensor values may lose fine-grained signal differences
+4. Model is not tested on subjects outside the original dataset distribution
+5. Binary classification threshold is fixed and not optimized per class
+6. NLP approach does not leverage raw TOF (Time-of-Flight) spatial data
